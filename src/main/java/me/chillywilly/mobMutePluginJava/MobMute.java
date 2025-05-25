@@ -1,5 +1,7 @@
 package me.chillywilly.mobMutePluginJava;
 
+import me.chillywilly.mobMutePluginJava.events.RenameEvent;
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -15,9 +17,10 @@ public final class MobMute extends JavaPlugin {
     public void onEnable() {
         MobMute.plugin = this;
         saveResource("messages.yml", false);
+        getServer().getPluginManager().registerEvents(new RenameEvent(), this);
     }
 
-    public void getMMMessage(String path) {
+    public Component getMMMessage(String path) {
         File file = new File(getDataFolder() + "/messages.yml");
         if (!file.exists()) {
             saveResource("messages.yml", false);
@@ -28,6 +31,12 @@ public final class MobMute extends JavaPlugin {
 
         String unparsedMsg = config.getString(path);
         String unparsedPrefix = config.getString("prefix");
+
+        MiniMessage parser = MiniMessage.miniMessage();
+
+        String unparsedFull = unparsedPrefix + " " + unparsedMsg;
+
+        return parser.deserialize(convertLegacytoMM(unparsedFull));
     }
 
     public String convertLegacytoMM(String msg) {
@@ -52,6 +61,6 @@ public final class MobMute extends JavaPlugin {
                 .replace("&o", "<italic>")
                 .replace("&m", "<strikethrough>")
                 .replace("&k", "<magic>")
-                .replace("&r", "<reset>")
+                .replace("&r", "<reset>");
     }
 }
