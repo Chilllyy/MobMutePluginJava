@@ -18,7 +18,7 @@ public class RenameEvent implements Listener {
         Boolean main = player.getInventory().getItemInMainHand().getType() == Material.NAME_TAG;
         Boolean off = player.getInventory().getItemInOffHand().getType() == Material.NAME_TAG;
 
-        String item_name = "empty";
+        String item_name = "";
 
         MiniMessage MM = MiniMessage.miniMessage();
 
@@ -28,14 +28,28 @@ public class RenameEvent implements Listener {
             item_name = MM.serialize(player.getInventory().getItemInOffHand().displayName()).toLowerCase();
         }
 
-        if (item_name.contains("[mute]")) {
+        String mute_name = MobMute.plugin.getConfig().getString("mute-name");
+        String unmute_name = MobMute.plugin.getConfig().getString("unmute-name");
+        boolean cancel = MobMute.plugin.getConfig().getBoolean("cancel-rename-event");
+        if (mute_name == null) {
+            mute_name = "[mute]";
+            MobMute.plugin.getConfig().set("mute-name", mute_name);
+            MobMute.plugin.saveConfig();
+        }
+        if (unmute_name == null) {
+            unmute_name = "[unmute]";
+            MobMute.plugin.getConfig().set("unmute-name", unmute_name);
+            MobMute.plugin.saveConfig();
+        }
+
+        if (item_name.contains(mute_name)) {
             entity.setSilent(true);
             player.sendMessage(MobMute.plugin.getMMMessage("mute"));
-            event.setCancelled(true);
-        } else if (item_name.contains("[unmute]")) {
+            event.setCancelled(cancel);
+        } else if (item_name.contains(unmute_name)) {
             entity.setSilent(false);
             player.sendMessage(MobMute.plugin.getMMMessage("unmute"));
-            event.setCancelled(true);
+            event.setCancelled(cancel);
         }
 
     }

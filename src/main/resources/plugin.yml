@@ -1,5 +1,10 @@
 name: MobMutePlugin
-version: '1.0'
+version: ${project.version}
 main: me.chillywilly.mobMutePluginJava.MobMute
 api-version: '1.21'
 authors: [ Chilly_Willy ]
+
+permissions:
+  mobmute.mute:
+    description: Allows a player to mute mobs
+    default: true

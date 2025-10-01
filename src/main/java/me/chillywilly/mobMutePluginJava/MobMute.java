@@ -16,6 +16,7 @@ public final class MobMute extends JavaPlugin {
     @Override
     public void onEnable() {
         MobMute.plugin = this;
+        saveDefaultConfig();
         saveResource("messages.yml", false);
         getServer().getPluginManager().registerEvents(new RenameEvent(), this);
     }
