@@ -8,4 +8,4 @@ Supports [MiniMessage](https://docs.advntr.dev/minimessage/format.html) in messa
 
 Reach out on my [Discord](https://discord.com/invite/MAZE2EWFR9) for support or questions!
 
-![Promo Image][https://github.com/Chilllyy/MobMutePluginJava/blob/master/img/gallery.png?raw![gallery.png](../../AppData/Local/Temp/gallery.png)=true]
+![Promo Image](https://github.com/Chilllyy/MobMutePluginJava/blob/master/img/gallery.png?raw=true)
